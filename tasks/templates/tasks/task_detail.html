@@ -1,0 +1,30 @@
+{% extends "layout/base.html" %} {% block content %}
+
+<main class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <h1 class="text-center display-3">Actualizar tareas</h1>
+      {{ alert }}
+
+      <form method="POST" class="card card-body">
+        {% csrf_token %} {{ form.as_p }}
+
+        <button class="btn btn-dark">Actualizar</button>
+
+        <div class="row my-3 d-flex justify-content-evenly">
+          <a
+            href="{% url 'complete_task' task.id%}"
+            class="btn btn-success col-md-5"
+            >Tarea Realizada</a
+          >
+          <a
+            href="{% url 'delete_task' task.id%}"
+            class="btn btn-danger col-md-5"
+            >Eliminar Tarea</a
+          >
+        </div>
+      </form>
+    </div>
+  </div>
+</main>
+{% endblock %}

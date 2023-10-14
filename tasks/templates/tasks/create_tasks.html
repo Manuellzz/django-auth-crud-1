@@ -1,0 +1,16 @@
+{% extends "layout/base.html" %} {% block content %}
+
+<main class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <h1 class="text-center display-3">Crear tareas</h1>
+      {{ alert }}
+      <form method="POST" class="card card-body">
+        {% csrf_token %} {{ form.as_p }}
+
+        <button class="btn btn-dark">Crear</button>
+      </form>
+    </div>
+  </div>
+</main>
+{% endblock %}
