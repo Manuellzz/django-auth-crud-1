@@ -54,6 +54,25 @@ def signin(request):
             login(request, user)
             return redirect('tasks')   
 
+def change_password(request):
+    if request.method == 'GET':
+        return render(request,'change_password.html')
+    else:
+        if request.POST['password1'] == request.POST['password2']:
+            try:
+                user = User.objects.get(username=request.user.username)
+                user.set_password(request.POST['password1'])
+                user.save()
+                login(request, user)
+                return redirect('tasks')
+            except:
+                return render(request, 'change_password.html',{
+                    'alert': 'El usuario ya existe'
+                })
+        return render(request, 'change_password.html',{
+            'alert': 'Las contraseñas no son iguales'
+        })
+
 @login_required
 def tasks(request):
     task = Task.objects.filter(user=request.user, datedone__isnull=True)
