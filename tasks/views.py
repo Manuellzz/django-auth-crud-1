@@ -1,10 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
-from .forms import CreateTaskForm
+from .forms import CreateTaskForm,UserCreationFormEmail
 from .models import Task
 
 # Create your views here.
@@ -14,7 +14,7 @@ def home(request):
 def signup(request):
     if request.method == 'GET':
         return render(request, 'signup.html',{
-            'form': UserCreationForm()
+            'form': UserCreationFormEmail()
         })
     else:
         if request.POST['password1'] == request.POST['password2']:
@@ -25,11 +25,11 @@ def signup(request):
                 return redirect('tasks')
             except:
                 return render(request, 'signup.html',{
-                    'form': UserCreationForm(),
+                    'form': UserCreationFormEmail(),
                     'alert': 'El usuario ya existe'
                 })
         return render(request, 'signup.html',{
-            'form': UserCreationForm(),
+            'form': UserCreationFormEmail(),
             'alert': 'Las contraseñas no son iguales'
         })
 
